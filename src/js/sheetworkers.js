@@ -2090,6 +2090,8 @@ on(`change:repeating_careers`, eventInfo => wfrpModule.calculateInitColumns(even
 
 on(`change:repeating_armour remove:repeating_armour`, eventInfo => wfrpModule.calculateArmour());
 
+on(`remove:repeating_trappings remove:repeating_armour remove:repeating_weapons`, eventInfo => wfrpModule.calculateCurrentEncumbrance());
+
 on(`change:repeating_trappings change:repeating_armour:armour_enc change:repeating_weapons:weapon_enc`, eventInfo => wfrpModule.calculateCurrentEncumbrance());
 
 on(`change:repeating_weapons:weapon_damage_flat change:repeating_weapons:weapon_damage_bonus`, eventInfo => wfrpModule.updateWeaponDamage(eventInfo.sourceAttribute));
