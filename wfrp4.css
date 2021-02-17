@@ -1918,6 +1918,9 @@ input[type=hidden][name=attr_npc][value=on] ~ * .sheet-wfrp-npc, input[type=hidd
   grid-template-columns: 0.75fr 1fr;
   gap: 0.25rem;
 }
+.sheet-rolltemplate-wfrp .sheet-wfrp-roll__row--number {
+  grid-template-columns: 1fr 3rem;
+}
 .sheet-rolltemplate-wfrp .sheet-wfrp-roll__row--full {
   grid-template-columns: 1fr;
   grid-column: 1/-1;

@@ -188,7 +188,7 @@ const wfrpModule = ( () => {
         let slbonus = "";
 
         if (new_value === "1") {
-            query = "?{Bonus|0}";
+            query = "?{Target Bonus|0}";
             slbonus = "{{sl_bonus=?{SL Bonus|0}}}"
         }
         
