@@ -2591,6 +2591,10 @@
             <div class="wfrp-skilltable_row wfrp-settings control__hide--channelling_settings">
               <h2 data-i18n="specialisation display"></h2>
               <div class="wfrp-settings__row"> 
+                <div class="wfrp-settings__label" data-i18n="Azyr"></div>
+                <input class="wfrp-settings__checkbox" name="attr_azyr_control" type="checkbox"/>
+              </div>
+              <div class="wfrp-settings__row"> 
                 <div class="wfrp-settings__label" data-i18n="Aqshy"></div>
                 <input class="wfrp-settings__checkbox" name="attr_aqshy_control" type="checkbox"/>
               </div>
@@ -2621,6 +2625,87 @@
               <div class="wfrp-settings__row"> 
                 <div class="wfrp-settings__label" data-i18n="Ulgu"></div>
                 <input class="wfrp-settings__checkbox" name="attr_ulgu_control" type="checkbox"/>
+              </div>
+              <div class="wfrp-settings__row"> 
+                <div class="wfrp-settings__label" data-i18n="Custom"></div>
+                <input class="wfrp-settings__checkbox" name="attr_custom_control" type="checkbox"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="specialisation_wrapper">
+          <input name="attr_azyr_settings" type="hidden"/>
+          <input name="attr_azyr_control" type="hidden"/>
+          <div class="wfrp-skilltable__row--specialisation control__hide--azyr">
+            <input name="attr_azyr_characteristic" type="hidden" value="willpower"/>
+            <div class="wfrp-skilltable__cell--settingstoggle">
+              <label class="wfrp-displaytoggle">
+                <input class="wfrp-displaytoggle__hide" name="attr_azyr_settings" type="checkbox" value="1"/><span class="wfrp-displaytoggle__span">y</span>
+              </label>
+            </div>
+            <div class="wfrp-skilltable__cell">
+              <button data-i18n="Azyr" name="roll_azyr" type="roll" value="@{roll_whisper} &amp;{template:wfrp} {{name=@{character_name}}} {{roll=[[1d100cs&lt;@{roll_cs}cf&gt;@{roll_cf}]]}} {{difficulty=[[@{difficulty_query}]]}} {{bonus=[[@{roll_query}]]}} @{roll_slbonus} {{target=[[@{azyr}+@{difficulty_query}+@{roll_query}]]}} {{roll_name=Channelling - Azyr}} {{roll_type=Specialisation}} {{roll_notes=@{azyr_notes}}} {{name=@{character_name}}}"></button>
+            </div>
+            <div class="wfrp-skilltable__cell">
+              <select name="attr_azyr_characteristic">
+                <option data-i18n="WS" value="weapon_skill"></option>
+                <option data-i18n="BS" value="ballistic_skill"></option>
+                <option data-i18n="S" value="strength"></option>
+                <option data-i18n="T" value="toughness"></option>
+                <option data-i18n="I" value="initiative"></option>
+                <option data-i18n="Ag" value="agility"></option>
+                <option data-i18n="Dex" value="dexterity"></option>
+                <option data-i18n="Int" value="intelligence"></option>
+                <option selected="willpower" data-i18n="WP" value="willpower"></option>
+                <option data-i18n="Fel" value="fellowship"></option>
+              </select>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--weapon_skill"><span class="display" name="attr_weapon_skill"></span>
+              <input name="attr_weapon_skill" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--ballistic_skill"><span class="display" name="attr_ballistic_skill"></span>
+              <input name="attr_ballistic_skill" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--strength"><span class="display" name="attr_strength"></span>
+              <input name="attr_strength" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--toughness"><span class="display" name="attr_toughness"></span>
+              <input name="attr_toughness" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--initiative"><span class="display" name="attr_initiative"></span>
+              <input name="attr_initiative" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--agility"><span class="display" name="attr_agility"></span>
+              <input name="attr_agility" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--dexterity"><span class="display" name="attr_dexterity"></span>
+              <input name="attr_dexterity" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--intelligence"><span class="display" name="attr_intelligence"></span>
+              <input name="attr_intelligence" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--willpower"><span class="display" name="attr_willpower"></span>
+              <input name="attr_willpower" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--fellowship"><span class="display" name="attr_fellowship"></span>
+              <input name="attr_fellowship" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell">
+              <input name="attr_azyr_advances" type="hidden" value="0"/><span class="display" name="attr_azyr_advances"></span>
+            </div>
+            <div class="wfrp-skilltable__cell--last wfrp-skilltable__cell--highlight"><span class="display" name="attr_azyr"></span></div>
+            <div class="wfrp-skilltable_row wfrp-settings control__hide--azyr_settings">
+              <div class="wfrp-settings__row">
+                <div class="wfrp-settings__label" data-i18n="Modifier"> </div><span class="display" name="attr_azyr_modifier"></span>
+                <input name="attr_azyr_modifier" type="hidden" value="0"/>
+              </div>
+              <div class="wfrp-settings__row">
+                <div class="wfrp-settings__label" data-i18n="Bonus"> </div>
+                <input class="wfrp-settings__input" name="attr_azyr_bonus" type="text"/>
+              </div>
+              <div class="wfrp-settings__row--span">
+                <div class="wfrp-settings__label" data-i18n="Roll Notes"> </div>
+                <input class="wfrp-settings__input" name="attr_azyr_notes" type="text"/>
               </div>
             </div>
           </div>
@@ -3237,6 +3322,87 @@
               <div class="wfrp-settings__row--span">
                 <div class="wfrp-settings__label" data-i18n="Roll Notes"> </div>
                 <input class="wfrp-settings__input" name="attr_ulgu_notes" type="text"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="specialisation_wrapper">
+          <input name="attr_custom_settings" type="hidden"/>
+          <input name="attr_custom_control" type="hidden"/>
+          <div class="wfrp-skilltable__row--specialisation control__hide--custom">
+            <input name="attr_custom_characteristic" type="hidden" value="willpower"/>
+            <div class="wfrp-skilltable__cell--settingstoggle">
+              <label class="wfrp-displaytoggle">
+                <input class="wfrp-displaytoggle__hide" name="attr_custom_settings" type="checkbox" value="1"/><span class="wfrp-displaytoggle__span">y</span>
+              </label>
+            </div>
+            <div class="wfrp-skilltable__cell">
+              <button name="roll_custom" type="roll" value="@{roll_whisper} &amp;{template:wfrp} {{name=@{character_name}}} {{roll=[[1d100cs&lt;@{roll_cs}cf&gt;@{roll_cf}]]}} {{difficulty=[[@{difficulty_query}]]}} {{bonus=[[@{roll_query}]]}} @{roll_slbonus} {{target=[[@{custom}+@{difficulty_query}+@{roll_query}]]}} {{roll_name=Channelling - @{custom_name}}} {{roll_type=Specialisation}} {{roll_notes=@{custom_notes}}} {{name=@{character_name}}}"><span name="attr_custom_name"></span></button>
+            </div>
+            <div class="wfrp-skilltable__cell">
+              <select name="attr_custom_characteristic">
+                <option data-i18n="WS" value="weapon_skill"></option>
+                <option data-i18n="BS" value="ballistic_skill"></option>
+                <option data-i18n="S" value="strength"></option>
+                <option data-i18n="T" value="toughness"></option>
+                <option data-i18n="I" value="initiative"></option>
+                <option data-i18n="Ag" value="agility"></option>
+                <option data-i18n="Dex" value="dexterity"></option>
+                <option data-i18n="Int" value="intelligence"></option>
+                <option selected="willpower" data-i18n="WP" value="willpower"></option>
+                <option data-i18n="Fel" value="fellowship"></option>
+              </select>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--weapon_skill"><span class="display" name="attr_weapon_skill"></span>
+              <input name="attr_weapon_skill" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--ballistic_skill"><span class="display" name="attr_ballistic_skill"></span>
+              <input name="attr_ballistic_skill" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--strength"><span class="display" name="attr_strength"></span>
+              <input name="attr_strength" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--toughness"><span class="display" name="attr_toughness"></span>
+              <input name="attr_toughness" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--initiative"><span class="display" name="attr_initiative"></span>
+              <input name="attr_initiative" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--agility"><span class="display" name="attr_agility"></span>
+              <input name="attr_agility" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--dexterity"><span class="display" name="attr_dexterity"></span>
+              <input name="attr_dexterity" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--intelligence"><span class="display" name="attr_intelligence"></span>
+              <input name="attr_intelligence" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--willpower"><span class="display" name="attr_willpower"></span>
+              <input name="attr_willpower" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell control__hide--fellowship"><span class="display" name="attr_fellowship"></span>
+              <input name="attr_fellowship" type="hidden" value="0"/>
+            </div>
+            <div class="wfrp-skilltable__cell">
+              <input name="attr_custom_advances" type="hidden" value="0"/><span class="display" name="attr_custom_advances"></span>
+            </div>
+            <div class="wfrp-skilltable__cell--last wfrp-skilltable__cell--highlight"><span class="display" name="attr_custom"></span></div>
+            <div class="wfrp-skilltable_row wfrp-settings control__hide--custom_settings">
+              <div class="wfrp-settings__row--span">
+                <div class="wfrp-settings__label" data-i18n="Name"> </div>
+                <input class="wfrp-settings__input" name="attr_custom_name" type="text"/>
+              </div>
+              <div class="wfrp-settings__row">
+                <div class="wfrp-settings__label" data-i18n="Modifier"> </div><span class="display" name="attr_custom_modifier"></span>
+                <input name="attr_custom_modifier" type="hidden" value="0"/>
+              </div>
+              <div class="wfrp-settings__row">
+                <div class="wfrp-settings__label" data-i18n="Bonus"> </div>
+                <input class="wfrp-settings__input" name="attr_custom_bonus" type="text"/>
+              </div>
+              <div class="wfrp-settings__row--span">
+                <div class="wfrp-settings__label" data-i18n="Roll Notes"> </div>
+                <input class="wfrp-settings__input" name="attr_custom_notes" type="text"/>
               </div>
             </div>
           </div>
@@ -5634,7 +5800,7 @@
                 <div class="wfrp-settings__label" data-i18n="Name"> </div>
                 <input class="wfrp-settings__input" name="attr_spell_name" type="text"/>
               </div>
-              <input name="attr_spell_type" type="hidden"/>
+              <input name="attr_spell_type" type="hidden" value="Spell"/>
               <div class="wfrp-settings__row">
                 <div class="wfrp-settings__label" data-i18n="Type"> </div>
                 <select class="wfrp-settings__input" name="attr_spell_type">
@@ -6837,6 +7003,10 @@
               <input class="wfrp-npcsettings__input" name="attr_bribery" type="number"/>
             </div>
             <div class="wfrp-npcsettings__skill">
+              <div class="wfrp-npcsettings__label" data-i18n="Channelling (Azyr)"> </div>
+              <input class="wfrp-npcsettings__input" name="attr_Azyr" type="number"/>
+            </div>
+            <div class="wfrp-npcsettings__skill">
               <div class="wfrp-npcsettings__label" data-i18n="Channelling (Aqshy)"> </div>
               <input class="wfrp-npcsettings__input" name="attr_Aqshy" type="number"/>
             </div>
@@ -6867,6 +7037,10 @@
             <div class="wfrp-npcsettings__skill">
               <div class="wfrp-npcsettings__label" data-i18n="Channelling (Ulgu)"> </div>
               <input class="wfrp-npcsettings__input" name="attr_Ulgu" type="number"/>
+            </div>
+            <div class="wfrp-npcsettings__skill">
+              <div class="wfrp-npcsettings__label" data-i18n="Channelling (Custom)"> </div>
+              <input class="wfrp-npcsettings__input" name="attr_Custom" type="number"/>
             </div>
             <div class="wfrp-npcsettings__skill">
               <div class="wfrp-npcsettings__label" data-i18n="Charm"></div>
@@ -8765,6 +8939,7 @@
             "explosives",
             "sling",
             "throwing",
+            "azyr",
             "aqshy",
             "chamon",
             "dhar",
@@ -8773,7 +8948,8 @@
             "hysh",
             "shyish",
             "ulgu",
-            "magick"
+            "magick",
+            "custom"
         ],
 
         repeating_skills: [
