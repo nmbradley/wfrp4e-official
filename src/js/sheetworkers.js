@@ -1556,7 +1556,7 @@ const wfrpModule = ( () => {
                         armour_array.forEach(id => {
                             const worn = values[`repeating_armour_${id}_armour_worn`] || false;
                             const enc = parseInt(values[`repeating_armour_${id}_armour_enc`])
-                            const total = (worn === "on") ? enc - 1 : enc || 0
+                            const total = (enc > 0 && worn === "on") ? enc - 1 : enc || 0
 
                             total_enc += total;
                         });
@@ -1573,7 +1573,7 @@ const wfrpModule = ( () => {
                             const worn = values[`repeating_trappings_${id}_trappings_worn`] || false;
                             const inenc = values[`repeating_trappings_${id}_trappings_inenc`] || "0";
 
-                            const total = (worn === "on") ? (enc - 1) * amount : enc * amount;
+                            const total = (enc > 0 && worn === "on") ? (enc - 1) * amount : enc * amount;
 
                             if (inenc === "on") total_enc += total;
                         });
@@ -2098,7 +2098,7 @@ on(`change:repeating_careers`, eventInfo => wfrpModule.calculateInitColumns(even
 
 on(`change:repeating_armour remove:repeating_armour`, eventInfo => wfrpModule.calculateArmour());
 
-on(`change:repeating_trappings change:repeating_armour:armour_enc change:repeating_weapons:weapon_enc`, eventInfo => wfrpModule.calculateCurrentEncumbrance());
+on(`change:repeating_trappings change:repeating_armour:armour_enc change:repeating_armour:armour_worn change:repeating_weapons:weapon_enc`, eventInfo => wfrpModule.calculateCurrentEncumbrance());
 
 on(`change:repeating_weapons:weapon_damage_flat change:repeating_weapons:weapon_damage_bonus`, eventInfo => wfrpModule.updateWeaponDamage(eventInfo.sourceAttribute));
 
