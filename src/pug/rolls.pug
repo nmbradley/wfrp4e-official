@@ -77,10 +77,16 @@
     [skills.basic[18], skills.advanced[2], skills.advanced[5], skills.advanced[11]].forEach(skill => {
 
         skill.specialisations.forEach(specialisation => {
+
             const attr = specialisation.toLowerCase().replace(/ /g,"_");
 
+            const rollName = (specialisation === "Custom") ? "@{custom_name}" : specialisation;
+
+            console.log(specialisation)
+            console.log(rollName)
+
             const roll_values = {
-                roll_name: `${skill.name} - ${specialisation}`,
+                roll_name: `${skill.name} - ${rollName}`,
                 roll_type: `Specialisation`,
                 roll_notes: `@{${attr}_notes}`
             }

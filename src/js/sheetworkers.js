@@ -96,6 +96,7 @@ const wfrpModule = ( () => {
             "explosives",
             "sling",
             "throwing",
+            "azyr",
             "aqshy",
             "chamon",
             "dhar",
@@ -104,7 +105,8 @@ const wfrpModule = ( () => {
             "hysh",
             "shyish",
             "ulgu",
-            "magick"
+            "magick",
+            "custom"
         ],
 
         repeating_skills: [
