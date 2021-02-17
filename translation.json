@@ -1,9 +1,11 @@
 {
+    "":"",
     "Name":"Name",
     "Species":"Species",
     "Human":"Human",
     "Halfling":"Halfling",
     "Dwarf":"Dwarf",
+    "Gnome":"Gnome",
     "Class":"Class",
     "Academic":"Academic",
     "Burgher":"Burgher",

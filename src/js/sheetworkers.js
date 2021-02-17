@@ -367,6 +367,9 @@ const wfrpModule = ( () => {
             size: 0
         }
 
+        if (new_value === "") {
+            return;
+        }
         if (new_value === "human") {
             update["fate"] = 2;
             update["resilience"] = 1;
@@ -397,6 +400,12 @@ const wfrpModule = ( () => {
             update["movement"] = 5;
             update["size"] = "average";
         }
+        if (new_value === "gnome") {
+            update["fate"] = 2;
+            update["resilience"] = 0;
+            update["movement"] = 3;
+            update["size"] = "small";
+        }
 
         if (new_value !== "custom") {
 
@@ -404,16 +413,15 @@ const wfrpModule = ( () => {
                 const skills = helperFunctions.parseJSON(page.data.Skills);
                 const talents = helperFunctions.parseJSON(page.data.Talents);
     
-                let skills_fixed = [];
-                let talents_fixed = [];
+                const skills_fixed = skills.Fixed.split(",").map(item=>item.trim()) || [];
+                const talents_fixed = talents.Fixed.split(",").map(item=>item.trim()) || [];
+    
                 let talents_choices = [];
     
                 let skill_index = 1;
                 let talent_index = 1;
                 
-                if (skills && skills.Fixed) skills_fixed = skills.Fixed.split(",").map(item=>item.trim());
-                if (talents && talents.Fixed) talents_fixed = talents.Fixed.split(",").map(item=>item.trim());
-                if (talents && talents.Choices) talents.Choices.forEach(choice => talents_choices = [...talents_choices, ...choice]);
+                if (talents.Choices) talents.Choices.forEach(choice => talents_choices = [...talents_choices, ...choice]);
     
                 for (let index = 1; index <= 12; index++) {
                     update[`species_skill_${index}_name`] = "";
@@ -1550,7 +1558,7 @@ const wfrpModule = ( () => {
                             const enc = parseInt(values[`repeating_armour_${id}_armour_enc`])
                             const total = (worn === "on") ? enc - 1 : enc || 0
 
-                            total_enc += total >= 0 ? total : 0;
+                            total_enc += total;
                         });
 
                         weapons_array.forEach(id => {
@@ -1567,7 +1575,7 @@ const wfrpModule = ( () => {
 
                             const total = (worn === "on") ? (enc - 1) * amount : enc * amount;
 
-                            if (inenc === "on") total_enc += total >= 0 ? total : 0;
+                            if (inenc === "on") total_enc += total;
                         });
 
                         setAttrs({encumbrance:total_enc})
@@ -2090,8 +2098,6 @@ on(`change:repeating_careers`, eventInfo => wfrpModule.calculateInitColumns(even
 
 on(`change:repeating_armour remove:repeating_armour`, eventInfo => wfrpModule.calculateArmour());
 
-on(`remove:repeating_trappings remove:repeating_armour remove:repeating_weapons`, eventInfo => wfrpModule.calculateCurrentEncumbrance());
-
 on(`change:repeating_trappings change:repeating_armour:armour_enc change:repeating_weapons:weapon_enc`, eventInfo => wfrpModule.calculateCurrentEncumbrance());
 
 on(`change:repeating_weapons:weapon_damage_flat change:repeating_weapons:weapon_damage_bonus`, eventInfo => wfrpModule.updateWeaponDamage(eventInfo.sourceAttribute));
@@ -2129,6 +2135,3 @@ wfrpModule.wfrp.characteristics.forEach(characteristic => {
 });
 
 on(`change:npc sheet:opened`, eventInfo => wfrpModule.updateNPCButtons());
-
-//# sourceURL=sheetworkers.js
-
