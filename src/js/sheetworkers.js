@@ -452,8 +452,10 @@ const wfrpModule = ( () => {
                     update[`species_talent_${talent_index}_advances`] = "0";
                     talent_index++;
                 }
+
+                update["advances_changed"] = 1;
     
-                setAttrs(update, {silent:true}, callback => calculateTalentAdvances());
+                setAttrs(update, {silent:true});
             });
 
         } else {
@@ -1177,7 +1179,7 @@ const wfrpModule = ( () => {
         });   
     }
 
-    const calculateSkillAdvances = (skill) => {
+    const calculateSkillAdvances = () => {
         getSectionIDs("careers", id_array => {
 
             getSectionIDs("noncareer-skills", id_array_2 => {
@@ -1356,7 +1358,10 @@ const wfrpModule = ( () => {
 
                                 const key_array = Object.keys(values).filter(item => item !== "");
 
-                                let page_name = key.split("(")[0].trim() || key;
+                                let page_name = key.trim() || key;
+
+                                console.log(page_name)
+                                console.log(value_array_test)
 
                                 if (value_array_test.includes(page_name.toLowerCase())) {
                                     const index = value_array_test.indexOf(page_name.toLowerCase());
@@ -1399,7 +1404,7 @@ const wfrpModule = ( () => {
     const calculateInitColumns = (source_attribute, new_value) => {
         const attrs = [];
         const source_type = (source_attribute.match(/talent/g)) ? "talent" :
-                            (source_attribute.match(/skill/g)) ? "skill" :
+                            (source_attribute.match(/career_skill/g)) ? "skill" :
                             false;
         const source_id = helperFunctions.extractRepeatingId(source_attribute, "careers");
         const is_init = source_attribute.match(/init/);
@@ -1420,6 +1425,7 @@ const wfrpModule = ( () => {
 
         getAttrs(attrs, values => {
             const spent = Object.values(values).filter(item => item !== "").map(item => parseInt(item));
+            if (spent.length === 0) return;
             const total = spent.reduce((a,b) => a+b) || 0;
             const maximum_allowed = (source_type === "skill") ? 40 : 1;
             
@@ -1431,6 +1437,14 @@ const wfrpModule = ( () => {
 
         });
 
+    }
+
+    const updateAdvances = () => {
+        wfrp.characteristics.forEach(characteristic => calculateCharacteristicAdvances(characteristic));
+        calculateSkillAdvances();
+        calculateTalentAdvances();
+
+        setAttrs({advances_changed:0});
     }
 
     // Trappings, Weapons & Armor Functions
@@ -1901,7 +1915,6 @@ const wfrpModule = ( () => {
         // Skill Functions
         calculateSkill: calculateSkill,
         calculateSpecialisation: calculateSpecialisation,
-        //updateRepeatingSkillBase: updateRepeatingSkillBase,
         recalculateRepeatingSkill: recalculateRepeatingSkill,
         cascadeSkillChanges:cascadeSkillChanges,
 
@@ -1910,18 +1923,19 @@ const wfrpModule = ( () => {
         updateCurrentCareer: updateCurrentCareer,
         updateCurrentCareerLevel: updateCurrentCareerLevel,
         updateCareerNames: updateCareerNames,
-        updateFirstCareer:updateFirstCareer,
+        updateFirstCareer: updateFirstCareer,
 
         // Experience Functions
-        calculateTotalAdvances:calculateTotalAdvances,
-        recalculateEarnedXP:recalculateEarnedXP,
-        recalculateCurrentXP:recalculateCurrentXP,
-        recalculateSpentXP:recalculateSpentXP,
         calculateCharacteristicAdvances:calculateCharacteristicAdvances,
         calculateSkillAdvances:calculateSkillAdvances,
         calculateTalentAdvances:calculateTalentAdvances,
+        calculateTotalAdvances:calculateTotalAdvances,
         calculateInitColumns:calculateInitColumns,
         consolidateXP:consolidateXP,
+        recalculateEarnedXP:recalculateEarnedXP,
+        recalculateCurrentXP:recalculateCurrentXP,
+        recalculateSpentXP:recalculateSpentXP,
+        updateAdvances: updateAdvances,
 
         // Trappings, Weapons & Armor Functions
         calculateArmour:calculateArmour,
@@ -2022,6 +2036,8 @@ wfrpModule.wfrp.repeating_skills.forEach(section => {
 
 // CAREERS CHANGES
 
+on(`clicked:update_advances`, eventInfo => wfrpModule.updateAdvances());
+
 on(`change:repeating_careers change:_reporder:careers`, eventInfo => {
     if (eventInfo.sourceType === "player" && !eventInfo.sourceAttribute.match(/reporder/g)) wfrpModule.calculateTotalAdvances(eventInfo.sourceAttribute);
     wfrpModule.updateCareerPath();
@@ -2054,35 +2070,33 @@ on(`change:current_xp change:spent_xp change:total_xp remove:repeating_experienc
 
 on(`change:repeating_experience change:repeating_experiencespent change:experience_mod remove:repeating_experiencespent remove:repeating_experience`, eventInfo => wfrpModule.recalculateSpentXP());
 
+const advance_triggers = []
+
 wfrpModule.wfrp.characteristics.forEach(characteristic => {
-    on(`change:repeating_careers:career_${characteristic}_advances change:repeating_careers:career_${characteristic}_init`, eventInfo => wfrpModule.calculateCharacteristicAdvances(characteristic))
+    advance_triggers.push(`change:repeating_careers:career_${characteristic}_advances change:repeating_careers:career_${characteristic}_init`)
 });
 
 [1,2,3,4].forEach(level => {
     [1,2,3,4,5].forEach(talent => {
-        on(`change:repeating_careers:career_talent_${level}_${talent}_name 
-            change:repeating_careers:career_talent_${level}_${talent}_init 
-            change:repeating_careers:career_talent_${level}_${talent}_advances`, 
-            eventInfo => wfrpModule.calculateTalentAdvances());
+        advance_triggers.push(`change:repeating_careers:career_talent_${level}_${talent}_name change:repeating_careers:career_talent_${level}_${talent}_init change:repeating_careers:career_talent_${level}_${talent}_advances`)
     });
 
     [1,2,3,4,5,6,7,8,9,10].forEach(skill => {
-        on(`change:repeating_careers:career_skill_${level}_${skill}_name 
-            change:repeating_careers:career_skill_${level}_${skill}_init 
-            change:repeating_careers:career_skill_${level}_${skill}_advances`, 
-            eventInfo => wfrpModule.calculateSkillAdvances());
+        advance_triggers.push(`change:repeating_careers:career_skill_${level}_${skill}_name change:repeating_careers:career_skill_${level}_${skill}_init change:repeating_careers:career_skill_${level}_${skill}_advances`);
     });
 });
 
 for (let index = 1; index <= 12; index++) {
-    on(`clicked:remove_skill_${index}`, eventInfo => setAttrs({[`species_skill_${index}_advances`]:"0"}));
+    advance_triggers.push(`clicked:remove_skill_${index}`);
 
-    on(`change:species_skill_${index}_advances`, eventInfo => wfrpModule.calculateSkillAdvances());
+    advance_triggers.push(`change:species_skill_${index}_advances`);
 } 
 
 for (let index = 1; index <= 10; index++) {
-    on(`change:species_talent_${index}_advances`, eventInfo => wfrpModule.calculateTalentAdvances())
+    advance_triggers.push(`change:species_talent_${index}_advances`);
 };
+
+on(advance_triggers.join(" "), eventInfo => setAttrs({advances_changed:"1"}));
 
 on(`clicked:combinexp`, eventInfo => wfrpModule.consolidateXP());
 
@@ -2137,3 +2151,4 @@ wfrpModule.wfrp.characteristics.forEach(characteristic => {
 });
 
 on(`change:npc sheet:opened`, eventInfo => wfrpModule.updateNPCButtons());
+

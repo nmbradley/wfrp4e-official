@@ -388,6 +388,8 @@
     "Advance Career Tier":"Advance Career Tier",
     "Change Career (Incomplete)":"Change Career (Incomplete)",
     "Change Career (Complete)":"Change Career (Complete)",
+    "This sheet has pending advance changes. Click below to save these changes.":"This sheet has pending advance changes. Click below to save these changes.",
+    "Update":"Update",
     "settings_npc":"NPC",
     "settings_npc_desc":"The NPC option sets new characters to default to the NPC card style sheet. Useful if the player characters have already been created and all new character sheets added to the game will likely represent non player characters.",
     "setting_whisper":"Whisper Rolls to GM",
