@@ -1055,6 +1055,18 @@ button.sheet-pictos[type=action]:hover {
 .sheet-wfrp-wrapper button {
   text-shadow: none;
 }
+.sheet-wfrp-wrapper button.sheet-wfrp-advancenotify__button {
+  display: block;
+  margin: 2px;
+  padding: 0.5rem;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: #fff;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 8pt;
+  font-weight: bold;
+  text-align: center;
+}
 
 .charsheet .sheet-wfrp-wrapper button[type=roll] {
   margin: 0;
@@ -1442,6 +1454,14 @@ input[name*=settings][value="1"] + div > .sheet-wfrp-npctraittable__cell--descri
 }
 input[name*=settings][value="1"] + div > .sheet-wfrp-npctalenttable__cell--description {
   display: none !important;
+}
+
+.sheet-wfrp-advancenotify {
+  display: none;
+}
+
+input[name*=advances_changed][value="1"] + .sheet-wfrp-advancenotify {
+  display: block;
 }
 
 .sheet-wfrp-npc__skills,
