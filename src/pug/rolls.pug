@@ -237,7 +237,7 @@
 
     ["Dodge","Endurance","Intuition","Perception","Cool"].forEach(button => {
         
-        const attr = `npc_${button.toLowerCase()}`;
+        const attr = button.toLowerCase();
 
         const roll_values = {
             roll_name: button,
@@ -245,6 +245,6 @@
             roll_notes: `@{${attr}_notes}`
         }
 
-        rolls.combat[`npc_${attr}`] = makeRoll(roll_values, attr, true, "combat")
+        rolls.combat[`npc_${attr}`] = makeRoll(roll_values, `npc_${attr}`, true, "combat");
 
     });
