@@ -1869,6 +1869,11 @@ const wfrpModule = ( () => {
             "intuition",
             "perception",
             "cool",
+            "npc_dodge",
+            "npc_endurance",
+            "npc_intuition",
+            "npc_perception",
+            "npc_cool",
             ...wfrp.characteristics
         ];
 
@@ -1876,11 +1881,31 @@ const wfrpModule = ( () => {
             if (values[`NPC`] === "0") return;
             const update = {};
 
-            if (!values[`dodge`]) update[`dodge`] = values[`agility`];
-            if (!values[`endurance`]) update[`endurance`] = values[`toughness`];
-            if (!values[`intuition`]) update[`intuition`] = values[`initiative`];
-            if (!values[`perception`]) update[`perception`] = values[`initiative`];
-            if (!values[`cool`]) update[`cool`] = values[`willpower`];
+            const dodge = (values["dodge"]) ? values["dodge"] :
+                            (values["npc_dodge"]) ? values["npc_dodge"] : 
+                            values["agility"];
+
+            const endurance = (values["endurance"]) ? values["endurance"] :
+                            (values["npc_endurance"]) ? values["npc_endurance"] : 
+                            values["toughness"];
+
+            const intuition = (values["intuition"]) ? values["intuition"] :
+                            (values["npc_intuition"]) ? values["npc_intuition"] : 
+                            values["initiative"];
+
+            const perception = (values["perception"]) ? values["perception"] :
+                            (values["npc_perception"]) ? values["npc_perception"] : 
+                            values["initiative"];
+
+            const cool = (values["cool"]) ? values["cool"] :
+                            (values["npc_cool"]) ? values["npc_cool"] : 
+                            values["willpower"];
+
+            update[`npc_dodge`] = dodge;
+            update[`npc_endurance`] = endurance;
+            update[`npc_intuition`] = intuition;
+            update[`npc_perception`] = perception;
+            update[`npc_cool`] = cool;
 
             setAttrs(update);
 
@@ -2146,7 +2171,7 @@ on(`change:repeating_attacks:attack_name change:repeating_attacks:attack_type`, 
 
 on(`change:weapon_skill change:ballistic_skill`, eventInfo => wfrpModule.cascadeNPCAttacks());
 
-wfrpModule.wfrp.characteristics.forEach(characteristic => {
+[...wfrpModule.wfrp.characteristics, "initiative", "dodge", "endurance", "intuition", "perception", "cool"].forEach(characteristic => {
     on(`change:${characteristic} change:${characteristic}_bonus`, eventInfo => wfrpModule.updateNPCButtons())
 });
 

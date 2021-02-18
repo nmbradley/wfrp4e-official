@@ -1640,9 +1640,19 @@ input[type=hidden][name=attr_npc][value=on] ~ * .sheet-wfrp-npc, input[type=hidd
   gap: 1rem 2rem;
   margin: 0 3rem;
 }
+.sheet-wfrp-npcsettings__skills--additional .repcontainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem 2rem;
+  margin: 0 3rem;
+}
+.sheet-wfrp-npcsettings__skills--additional .repcontrol {
+  margin-top: 0.5rem;
+}
 .sheet-wfrp-npcsettings__skill {
   display: grid;
-  grid-template-columns: 1fr 1.5em;
+  grid-template-columns: 1fr 3rem;
+  grid-gap: 0.25rem;
 }
 .sheet-wfrp-npcsettings__settings {
   display: grid;
@@ -1687,7 +1697,7 @@ input[type=hidden][name=attr_npc][value=on] ~ * .sheet-wfrp-npc, input[type=hidd
   content: "";
   height: 100%;
 }
-.sheet-wfrp-npc__skills input[type=hidden][value="0"] + button.sheet-wfrp-npcskill {
+.sheet-wfrp-npc__skills input[type=hidden][value="0"] + button.sheet-wfrp-npcskill, .sheet-wfrp-npc__skills input[type=hidden][value=""] + button.sheet-wfrp-npcskill, .sheet-wfrp-npc__skills input[type=hidden]:not([value]) + button.sheet-wfrp-npcskill {
   display: none;
 }
 .sheet-wfrp-npc button[type=roll].sheet-wfrp-npcskill {
@@ -1701,6 +1711,9 @@ input[type=hidden][name=attr_npc][value=on] ~ * .sheet-wfrp-npc, input[type=hidd
   display: flex;
   flex-wrap: wrap;
   margin: auto;
+}
+.sheet-wfrp-npcskill__wrapper .repcontrol {
+  display: none;
 }
 .sheet-wfrp-npcskill__title {
   display: inline;
