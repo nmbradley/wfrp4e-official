@@ -54,6 +54,9 @@
                                 .wfrp-npcsettings__label(data-i18n=`${skill.name} (${specialism})`) 
                                 input.wfrp-npcsettings__input(name=`attr_${specialism}`, type="number")
 
+            h2(data-i18n="Additional Skills")
+            .wfrp-npcsettings__skills--additional
+                +repeating-section("npc-skills","npc-additional-skill")
 
             h2(data-i18n="Settings")
             .wfrp-npcsettings__settings
@@ -150,6 +153,10 @@
                 .wfrp-npcskill__wrapper
                     each skill in [...skills.basic, ...skills.advanced]
                         +npc-skill(skill)
+
+                .wfrp-npcskill__wrapper
+                    +repeating-section("npc-skills","npc-additional-skill-display")
+
 
             .wfrp-npccombat
                 h2.wfrp-npc__subtitle(data-i18n="Combat")
