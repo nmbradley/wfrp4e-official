@@ -139,7 +139,10 @@ const wfrpModule = ( () => {
 
     const initSheet = () => {
 
-        wfrp.characteristics.forEach(char => calculateCharacteristic(char));
+        wfrp.characteristics.forEach(char => {
+            calculateCharacteristic(char)
+            recalculateAttribute(`${char}_modifier`, char);
+        });
 
         wfrp.skills.forEach(skill => calculateSkill(skill));
 
@@ -268,7 +271,7 @@ const wfrpModule = ( () => {
     }
 
     const recalculateAttribute = (attribute, query) => {
-        const attrs = [...wfrp.characteristics, ...wfrp.characteristics.map(item => `${item}_bonus`)];
+        const attrs = [...wfrp.characteristics, ...wfrp.characteristics.map(item => `${item}_bonus`), ...wfrp.characteristics.map(item => `${item}_custom_mod`)];
         let match_array = [query];
         const parsed_query = query.replace(/ /g, "_");
 
@@ -347,6 +350,8 @@ const wfrpModule = ( () => {
 
                         }
                     });
+
+                    if (wfrp.characteristics.includes(query)) mod_array.push(+values[`${parsed_query}_custom_mod`]);
 
                     const new_value = mod_array.reduce((a,b) => a+b, 0);
 
@@ -509,7 +514,7 @@ const wfrpModule = ( () => {
             const initial = parseInt(values[`${characteristic}_initial`]) || 0;
             const advances = parseInt(values[`${characteristic}_advances`]) || 0;
             const modifier = parseInt(values[`${characteristic}_modifier`]) || 0;
-            const custom_mod = parseInt(values[`${characteristic}_custom_mod`]) || 0;
+            // const custom_mod = parseInt(values[`${characteristic}_custom_mod`]) || 0;
             const bonusmod = parseInt(values[`${characteristic}_bonusmod`]) || 0;
 
             if (values["npc"] === "on") {
@@ -525,7 +530,7 @@ const wfrpModule = ( () => {
                 return;
             } else {
 
-                const current = initial + advances + modifier + custom_mod;
+                const current = initial + advances + modifier;
     
                 const bonus = Math.floor(current / 10) + bonusmod;
     
@@ -1360,9 +1365,6 @@ const wfrpModule = ( () => {
 
                                 let page_name = key.trim() || key;
 
-                                console.log(page_name)
-                                console.log(value_array_test)
-
                                 if (value_array_test.includes(page_name.toLowerCase())) {
                                     const index = value_array_test.indexOf(page_name.toLowerCase());
                                     const array_key = key_array[index];
@@ -1926,6 +1928,7 @@ const wfrpModule = ( () => {
         toggleRollCrits:toggleRollCrits,
         toggleInitOption:toggleInitOption,
         toggleWhisper:toggleWhisper,
+        recalculateAttribute:recalculateAttribute,
         parseModField:parseModField,
 
         // Class and Species Controls
@@ -2009,7 +2012,11 @@ on(`change:setting_whisper`, eventInfo => wfrpModule.toggleWhisper(eventInfo.new
     "repeating_weapon:weapon_mods",
     "repeating_armour:armour_mods",
 ].forEach(modifier => {
-    on(`change:${modifier}`, eventInfo => wfrpModule.parseModField(eventInfo.newValue, eventInfo.previousValue))
+    on(`change:${modifier}`, eventInfo => wfrpModule.parseModField(eventInfo.newValue, eventInfo.previousValue));
+});
+
+wfrpModule.wfrp.characteristics.forEach(characteristic => {
+    on(`change:${characteristic}_custom_mod`, eventInfo => wfrpModule.recalculateAttribute(`${characteristic}_modifier`, characteristic));
 });
 
 // CLASS AND SPECIES CONTROLS
