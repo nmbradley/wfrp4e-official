@@ -1,5 +1,5 @@
 
-<input name="attr_sheet_version" type="hidden" value="1.0.3"/>
+<input name="attr_sheet_version" type="hidden" value="1.0.4"/>
 <input name="attr_npc" type="hidden" value="0"/>
 <input name="attr_nav" type="hidden" value="main"/>
 <input name="attr_difficulty_query" type="hidden" value="?{Difficulty|Average (+20), 20|Very Easy (+60), 60|Easy (+40), 40|Average (+20), 20|Challenging (0), 0|Difficult (-10), -10|Hard (-20), -20|Very Hard (-30), -30}"/>
@@ -6789,8 +6789,8 @@
             </select>
           </div>
           <div class="wfrp-settingstable__row">
-            <div class="wfrp-settingstable__label" data-i18n="Initiative Bonus"></div>
-            <input class="wfrp-settingstable__select" name="attr_initiative_bonus" type="number" value="0"/>
+            <div class="wfrp-settingstable__label" data-i18n="Initiative Roll Bonus"></div>
+            <input class="wfrp-settingstable__select" name="attr_init_bonus" type="number" value="0"/>
           </div>
           <div class="wfrp-settingstable__row">
             <div class="wfrp-settingstable__label" data-i18n="Whisper to GM"></div>
@@ -7290,6 +7290,10 @@
                 <option value="2">1d10+I</option>
                 <option value="3">1d10+IB+AgB</option>
               </select>
+            </div>
+            <div class="wfrp-npcsettings__row">
+              <div class="wfrp-npcsettings__label" data-i18n="Initiative Roll Bonus"></div>
+              <input class="wfrp-npcsettings__input" name="attr_init_bonus" type="number" value="0"/>
             </div>
             <div class="wfrp-npcsettings__row">
               <div class="wfrp-npcsettings__label" data-i18n="Maximum Advantage"></div>
@@ -8873,7 +8877,7 @@
     // Global Variables
 
     const wfrp = {
-        sheet_version: "1.0.3",
+        sheet_version: "1.0.4",
 
         characteristics: [
             "weapon_skill",
@@ -9092,10 +9096,10 @@
     }
 
     const toggleInitOption = (new_value) => {
-        const init = (new_value === "1") ? `{{init=[[@{initiative}+@{initiative_bonus} &{tracker}]]}}` :
-                     (new_value === "2") ? `{{init=[[@{initiative}+1d10+@{initiative_bonus} &{tracker}]]}}` :
-                     (new_value === "3") ? `{{init=[[@{agility_bonus}+@{initiative_bonus}+1d10+@{initiative_bonus} &{tracker}]]}}` :
-                     `{{init=[[@{initiative}]]}}`;
+        const init = (new_value === "1") ? `{{init=[[@{initiative}+@{init_bonus} &{tracker}]]}}` :
+                     (new_value === "2") ? `{{init=[[@{initiative}+1d10+@{init_bonus} &{tracker}]]}}` :
+                     (new_value === "3") ? `{{init=[[@{agility_bonus}+@{initiatve_bonus}+1d10+@{init_bonus} &{tracker}]]}}` :
+                     `{{init=[[@{initiative}+@{init_bonus}]]}}`;
 
         setAttrs({roll_init:init});
     }

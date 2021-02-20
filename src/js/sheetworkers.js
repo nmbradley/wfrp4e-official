@@ -3,7 +3,7 @@ const wfrpModule = ( () => {
     // Global Variables
 
     const wfrp = {
-        sheet_version: "1.0.3",
+        sheet_version: "1.0.4",
 
         characteristics: [
             "weapon_skill",
@@ -222,10 +222,10 @@ const wfrpModule = ( () => {
     }
 
     const toggleInitOption = (new_value) => {
-        const init = (new_value === "1") ? `{{init=[[@{initiative}+@{initiative_bonus} &{tracker}]]}}` :
-                     (new_value === "2") ? `{{init=[[@{initiative}+1d10+@{initiative_bonus} &{tracker}]]}}` :
-                     (new_value === "3") ? `{{init=[[@{agility_bonus}+@{initiative_bonus}+1d10+@{initiative_bonus} &{tracker}]]}}` :
-                     `{{init=[[@{initiative}]]}}`;
+        const init = (new_value === "1") ? `{{init=[[@{initiative}+@{init_bonus} &{tracker}]]}}` :
+                     (new_value === "2") ? `{{init=[[@{initiative}+1d10+@{init_bonus} &{tracker}]]}}` :
+                     (new_value === "3") ? `{{init=[[@{agility_bonus}+@{initiatve_bonus}+1d10+@{init_bonus} &{tracker}]]}}` :
+                     `{{init=[[@{initiative}+@{init_bonus}]]}}`;
 
         setAttrs({roll_init:init});
     }

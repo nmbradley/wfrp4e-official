@@ -170,7 +170,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .sheet-wfrp-pc .sheet-wfrp-trappings {
   grid-column: 1/span 2;
-  grid-row: span 6;
+  grid-row: span 5;
   display: flex;
   flex-direction: column;
 }
@@ -254,7 +254,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   margin: 0.5rem auto;
 }
 .sheet-wfrp-pc .sheet-wfrp-weapons {
-  grid-column: 3/span 4;
+  grid-column: 1/span 6;
 }
 .sheet-wfrp-pc .sheet-wfrp-spells {
   grid-column: 1/-1;
