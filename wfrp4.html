@@ -8,7 +8,7 @@
 <input name="attr_roll_slbonus" type="hidden" value="{{roll_slbonus=?{SL Bonus|0}}}"/>
 <input name="attr_roll_cf" type="hidden" value="96"/>
 <input name="attr_roll_cs" type="hidden" value="5"/>
-<input name="attr_roll_init" type="hidden" value="{{init=[[@{initiative}+@{initiative_bonus} &amp;{tracker}]]}}"/>
+<input name="attr_roll_init" type="hidden" value="{{init=[[@{initiative}+@{init_bonus} &amp;{tracker}]]}}"/>
 <input name="attr_roll_cs" type="hidden" value="5"/>
 <input name="attr_roll_whisper" type="hidden" value=""/>
 <input name="attr_bar1_v" type="hidden"/>
@@ -6790,7 +6790,7 @@
           </div>
           <div class="wfrp-settingstable__row">
             <div class="wfrp-settingstable__label" data-i18n="Initiative Bonus"></div>
-            <input class="wfrp-settingstable__select" name="attr_initiative_bonus" type="number" value="0"/>
+            <input class="wfrp-settingstable__select" name="attr_init_bonus" type="number" value="0"/>
           </div>
           <div class="wfrp-settingstable__row">
             <div class="wfrp-settingstable__label" data-i18n="Whisper to GM"></div>
@@ -9092,9 +9092,9 @@
     }
 
     const toggleInitOption = (new_value) => {
-        const init = (new_value === "1") ? `{{init=[[@{initiative}+@{initiative_bonus} &{tracker}]]}}` :
-                     (new_value === "2") ? `{{init=[[@{initiative}+1d10+@{initiative_bonus} &{tracker}]]}}` :
-                     (new_value === "3") ? `{{init=[[@{agility_bonus}+@{initiative_bonus}+1d10+@{initiative_bonus} &{tracker}]]}}` :
+        const init = (new_value === "1") ? `{{init=[[@{initiative}+@{init_bonus} &{tracker}]]}}` :
+                     (new_value === "2") ? `{{init=[[@{initiative}+1d10+@{init_bonus} &{tracker}]]}}` :
+                     (new_value === "3") ? `{{init=[[@{agility_bonus}+@{initiative_bonus}+1d10+@{init_bonus} &{tracker}]]}}` :
                      `{{init=[[@{initiative}]]}}`;
 
         setAttrs({roll_init:init});
