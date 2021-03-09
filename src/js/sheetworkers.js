@@ -154,7 +154,11 @@ const wfrpModule = ( () => {
 
         calculateArmour();
 
-        getAttrs(["setting_init_option","setting_whisper","setting_bonus_option","setting_crit_option"], values => {
+        getAttrs(["setting_diff_option","setting_bonus_option","setting_init_option","setting_whisper","setting_bonus_option","setting_crit_option"], values => {
+
+            toggleRollDifficulty(values["setting_diff_option"]);
+
+            toggleRollBonus(values["setting_bonus_option"]);
 
             toggleInitOption(values["setting_init_option"]);
     
@@ -224,8 +228,8 @@ const wfrpModule = ( () => {
     const toggleInitOption = (new_value) => {
         const init = (new_value === "1") ? `{{init=[[@{initiative}+@{init_bonus} &{tracker}]]}}` :
                      (new_value === "2") ? `{{init=[[@{initiative}+1d10+@{init_bonus} &{tracker}]]}}` :
-                     (new_value === "3") ? `{{init=[[@{agility_bonus}+@{initiatve_bonus}+1d10+@{init_bonus} &{tracker}]]}}` :
-                     `{{init=[[@{initiative}+@{init_bonus}]]}}`;
+                     (new_value === "3") ? `{{init=[[@{agility_bonus}+@{initiative_bonus}+1d10+@{init_bonus} &{tracker}]]}}` :
+                     `{{init=[[@{initiative} + @{init_bonus} &{tracker}]]}}`;
 
         setAttrs({roll_init:init});
     }
