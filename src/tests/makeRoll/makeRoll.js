@@ -57,7 +57,7 @@ const constructRoll = (props) => {
     if (missing_fields.length > 0) throw new Error(`Missing ${missing_fields.join(", ")} from parameters.`)
 
     // Define some useful variables
-    const difficulty = (category === ("combat" || "magic")) ? `{{difficulty=[[@{difficulty_query_combat}]]}}` :
+    const difficulty = (category === "combat" || category === "magic") ? `{{difficulty=[[@{difficulty_query_combat}]]}}` :
         `{{difficulty=[[@{difficulty_query}]]}}`;
 
     const full_target = [
