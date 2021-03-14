@@ -37,8 +37,6 @@ const makeRoll = (roll, target, advantage = false, difficulty = false) => {
     return roll_array.join(" ");
 }
 
-const throwError = () => { throw new Error("error") }
-
 const constructRoll = (props) => {
     // Throw error if no props.
     if (!props) throw new Error("No props provided to constructRoll");
