@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "outFile": "./src/ts/test.js"
+    },
+    "includes": ["src/ts/"],
+}
